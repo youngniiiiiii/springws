@@ -1,12 +1,13 @@
 package com.kbstar.controller;
 
 import com.kbstar.dto.Cust;
+import com.kbstar.service.CustService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -15,7 +16,8 @@ import java.util.Random;
 @RequestMapping("/cust")
 public class CustController {
     //Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
-
+    @Autowired
+    CustService service;
     String dir = "cust/";
 
     //127.0.0.1/cust
@@ -39,7 +41,13 @@ public class CustController {
 
     @RequestMapping("get")
     public String get(Model model, String id) {
-        Cust cust = new Cust(id, "xxx", "james");
+        Cust cust = null;
+        try {
+            cust = service.get(id);
+        } catch (Exception e) {
+            log.info("......에러다.........");
+            e.printStackTrace();
+        }
         model.addAttribute("gcust", cust);
         model.addAttribute("left", dir + "left");
         model.addAttribute("center", dir + "get");
@@ -48,12 +56,18 @@ public class CustController {
 
     @RequestMapping("all")
     public String all(Model model) {
-        List<Cust> list = new ArrayList<>();
-        list.add(new Cust("id01", "pw01", "james1"));
-        list.add(new Cust("id02", "pw02", "james2"));
-        list.add(new Cust("id03", "pw03", "james3"));
-        list.add(new Cust("id04", "pw04", "james4"));
-        list.add(new Cust("id05", "pw05", "james5"));
+        List<Cust> list = null;
+
+        try {
+            list = service.get();
+
+//			for(Cust obj:list){
+//				log.info(obj.toString());
+        } catch (Exception e) {
+
+            log.info("......에러다.........");
+            e.printStackTrace();
+        }
 
         model.addAttribute("clist", list);
 

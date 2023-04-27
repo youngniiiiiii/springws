@@ -16,13 +16,14 @@
         init: function () {
             this.display();
             $('#s_btn').click(function () {
-                map03.go(37.579617, 126.977041, 's');
+                map03.go(37.640446, 127.014702, 'S');
             });
             $('#b_btn').click(function () {
-                map03.go(35.114495, 129.03933, 'b');
+                map03.go(35.1798456, 129.0705432, 'B');
             });
             $('#j_btn').click(function () {
-                map03.go(33.2541205, 126.560076, 'j');
+                map03.go(33.4999002, 126.5341787, 'J');
+
             });
         },
         display: function () {
@@ -90,7 +91,7 @@
                 });
                 // infoWindow
                 var iwContent = '<h2>' + positions[i].title + '</h2>';
-                iwContent += '<img src="/img/' + positions[i].img + '" style="width:50px">';
+                iwContent += '<img src="/uimg/' + positions[i].img + '" style="width:50px">';
 
                 var infowindow = new kakao.maps.InfoWindow({
                     position: positions[i].latlng,
